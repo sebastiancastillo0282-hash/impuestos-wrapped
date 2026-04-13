@@ -72,5 +72,6 @@ describe('calculateTotalTax', () => {
     const result = calculateTotalTax(profile)
     expect(result.isr).toBeCloseTo(100000, 0)
     expect(result.igss).toBe(0)
+    expect(result.grossIncome).toBe(400000)
   })
 })
