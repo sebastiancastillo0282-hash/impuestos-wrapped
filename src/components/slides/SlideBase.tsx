@@ -13,37 +13,28 @@ export default function SlideBase({ bg = '#080808', accentColor, question, child
       className="relative w-full h-full flex flex-col grain overflow-hidden"
       style={{ background: bg }}
     >
-      {/* Grid texture */}
-      <div className="absolute inset-0 opacity-[0.025]" style={{
-        backgroundImage: 'linear-gradient(#F2EDE4 1px, transparent 1px), linear-gradient(90deg, #F2EDE4 1px, transparent 1px)',
-        backgroundSize: '60px 60px',
-        pointerEvents: 'none',
-      }} />
-
-      {/* Accent glow */}
+      {/* Accent glow — corner */}
       {accentColor && (
-        <div className="absolute top-0 right-0 w-64 h-64 opacity-10 pointer-events-none" style={{
-          background: `radial-gradient(circle, ${accentColor} 0%, transparent 70%)`,
-          transform: 'translate(30%, -30%)',
+        <div className="absolute top-0 right-0 w-96 h-96 pointer-events-none" style={{
+          background: `radial-gradient(circle, ${accentColor}22 0%, transparent 65%)`,
+          transform: 'translate(25%, -25%)',
         }} />
       )}
 
-      <div className="relative z-10 flex-1 flex flex-col px-8 py-12 max-w-lg mx-auto w-full pb-4">
+      {/* Content */}
+      <div className="relative z-10 flex-1 flex flex-col px-7 pt-14 pb-4 max-w-lg mx-auto w-full">
         {children}
       </div>
 
-      {/* Per-rubro question */}
+      {/* Question — anchored to bottom */}
       {question && (
-        <div
-          className="relative z-10 px-8 pb-10 max-w-lg mx-auto w-full"
-          style={{ borderTop: '1px solid rgba(242,237,228,0.08)' }}
-        >
+        <div className="relative z-10 px-7 pb-10 max-w-lg mx-auto w-full">
+          <div style={{ height: 1, background: `${accentColor ?? '#F2EDE4'}22`, marginBottom: '1rem' }} />
           <p
-            className="text-xs leading-relaxed pt-3"
+            className="text-sm leading-relaxed font-mono"
             style={{
               color: accentColor ?? '#F2EDE4',
-              opacity: 0.6,
-              fontFamily: 'var(--font-dm-sans)',
+              opacity: 0.75,
               fontStyle: 'italic',
             }}
           >

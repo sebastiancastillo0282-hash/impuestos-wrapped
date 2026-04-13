@@ -5,72 +5,59 @@ import SlideBase from './SlideBase'
 import { TaxType } from '@/lib/taxes'
 
 const QUESTIONS: Record<TaxType, string> = {
-  employee: 'Vos sí pagaste. Otros no. El sistema carga más sobre los que cumplen para compensar a los que no.',
-  independiente: 'El sistema está diseñado para que los informales paguen menos que vos. Y vos pagás puntual igual.',
-  empresa: 'Tu competencia puede estar entre ese 70% de ISR no pagado. Vos no. Eso te cuesta.',
+  employee:      '¿Por qué vos pagás puntual y el servicio público sigue exactamente igual?',
+  independiente: '¿Por qué el que opera informal paga menos impuestos que vos que sí facturás?',
+  empresa:       '¿Cuánto de tu competencia está entre ese 70% que no pagó ISR este año?',
 }
 
 export default function EvacionSlide({ tipo }: { tipo: TaxType }) {
   return (
-    <SlideBase bg="#080808" accentColor="#C0392B" question={QUESTIONS[tipo]}>
-      <div className="flex flex-col h-full justify-between">
-        <div>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.1 }}
-            className="text-xs tracking-[0.3em] mb-4 opacity-50"
-            style={{ color: '#F2EDE4' }}
-          >
-            MIENTRAS VOS PAGABAS
-          </motion.p>
+    <SlideBase bg="#080808" accentColor="#EF4444" question={QUESTIONS[tipo]}>
+      <div className="flex flex-col h-full">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.1 }}
+          className="font-mono text-xs tracking-[0.25em] mb-4"
+          style={{ color: '#F2EDE4', opacity: 0.35 }}
+        >
+          MIENTRAS VOS PAGABAS
+        </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, type: 'spring', stiffness: 150 }}
-          >
-            <p className="font-display leading-none" style={{ fontSize: 'clamp(3.5rem, 16vw, 6rem)', color: '#C0392B', fontFamily: 'var(--font-bebas)' }}>
-              Q45,189
-            </p>
-            <p className="font-display leading-none" style={{ fontSize: 'clamp(1.5rem, 7vw, 2.5rem)', color: '#C0392B', opacity: 0.7, fontFamily: 'var(--font-bebas)' }}>
-              MILLONES
-            </p>
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="text-sm mt-2 opacity-50"
-            style={{ color: '#F2EDE4', fontFamily: 'var(--font-dm-sans)' }}
-          >
-            se evadieron en IVA e ISR. Solo en 2023.
-          </motion.p>
-        </div>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.15 }}
+          className="font-mono text-xs mb-3"
+          style={{ color: '#F2EDE4', opacity: 0.3 }}
+        >
+          se evadieron en IVA e ISR (2023):
+        </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="space-y-3"
+          transition={{ delay: 0.25, type: 'spring', stiffness: 160 }}
+          className="font-display leading-none"
+          style={{ fontSize: 'clamp(4rem, 21vw, 8.5rem)', color: '#EF4444' }}
         >
-          <div className="space-y-2">
-            {[
-              { label: 'ISR EVADIDO', value: 'Q30,618M', note: 'tasa de incumplimiento: 70.1%' },
-              { label: 'IVA EVADIDO', value: 'Q14,571M', note: 'tasa de incumplimiento: 24.8%' },
-            ].map(item => (
-              <div key={item.label} className="flex justify-between items-baseline">
-                <div>
-                  <p className="text-xs tracking-widest opacity-40" style={{ color: '#F2EDE4' }}>{item.label}</p>
-                  <p className="text-xs opacity-20" style={{ color: '#F2EDE4' }}>{item.note}</p>
-                </div>
-                <p className="font-display text-2xl" style={{ color: '#C0392B', fontFamily: 'var(--font-bebas)' }}>{item.value}</p>
-              </div>
-            ))}
-          </div>
-          <p className="text-xs opacity-25 pt-2" style={{ color: '#F2EDE4', borderTop: '1px solid rgba(242,237,228,0.08)' }}>
-            Eso es 3 presupuestos de salud. Fuente: SAT, julio 2024.
+          Q45,189M
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="mt-5 space-y-1"
+        >
+          <p className="font-mono text-xs" style={{ color: '#EF4444', opacity: 0.5 }}>
+            ISR: Q30,618M (incumplimiento 70.1%)
+          </p>
+          <p className="font-mono text-xs" style={{ color: '#EF4444', opacity: 0.35 }}>
+            IVA: Q14,571M (incumplimiento 24.8%)
+          </p>
+          <p className="font-mono text-xs mt-2" style={{ color: '#F2EDE4', opacity: 0.2 }}>
+            fuente: SAT, julio 2024 · equivale a 3 presupuestos de salud
           </p>
         </motion.div>
       </div>

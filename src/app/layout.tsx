@@ -1,16 +1,17 @@
 import type { Metadata } from 'next'
-import { Bebas_Neue, DM_Sans } from 'next/font/google'
+import { Barlow_Condensed, IBM_Plex_Mono } from 'next/font/google'
 import './globals.css'
 
-const bebas = Bebas_Neue({
-  weight: '400',
+const barlow = Barlow_Condensed({
+  weight: ['700', '900'],
   subsets: ['latin'],
-  variable: '--font-bebas',
+  variable: '--font-display',
 })
 
-const dmSans = DM_Sans({
+const ibmMono = IBM_Plex_Mono({
+  weight: ['400', '500'],
   subsets: ['latin'],
-  variable: '--font-dm-sans',
+  variable: '--font-mono',
 })
 
 export const metadata: Metadata = {
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={`${bebas.variable} ${dmSans.variable}`}>
+    <html lang="es" className={`${barlow.variable} ${ibmMono.variable}`}>
       <body className="antialiased">{children}</body>
     </html>
   )

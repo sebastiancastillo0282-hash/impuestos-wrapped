@@ -7,9 +7,9 @@ import { BudgetCategory } from '@/lib/budget'
 import { TaxType } from '@/lib/taxes'
 
 const QUESTIONS: Record<TaxType, string> = {
-  employee: 'Nadie te preguntó si estabas de acuerdo. Te lo descontaron antes de que vieras el número.',
-  independiente: 'Ellos tienen sueldo fijo garantizado. Vos tenés ingresos variables. Y aun así financiaste esto.',
-  empresa: 'Los mismos que regulan, multan y legislan sobre tu empresa se subieron el sueldo sin consultar.',
+  employee:      '¿Cuándo fue la última vez que un diputado te preguntó si podía subirse el sueldo?',
+  independiente: '¿Por qué un diputado tiene sueldo fijo garantizado y vos trabajás por resultados variables?',
+  empresa:       '¿Cuántos de los 160 que se subieron el sueldo esa noche saben cómo funciona una empresa?',
 }
 
 export default function CongresoSlide({ allocation, tipo }: { allocation: BudgetCategory & { amount: number }; tipo: TaxType }) {
@@ -17,48 +17,50 @@ export default function CongresoSlide({ allocation, tipo }: { allocation: Budget
   const hours = Math.round(days * 24)
 
   return (
-    <SlideBase bg="#180E00" accentColor="#E8C547" question={QUESTIONS[tipo]}>
-      <div className="flex flex-col h-full justify-between">
-        <div>
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-xs tracking-[0.3em] mb-4"
-            style={{ color: '#E8C547', opacity: 0.6 }}
-          >
-            AL CONGRESO PUSISTE
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, type: 'spring' }}
-            className="font-display leading-none mb-6"
-            style={{ fontSize: 'clamp(3rem, 14vw, 5rem)', color: '#F2EDE4', fontFamily: 'var(--font-bebas)' }}
-          >
-            {formatQ(allocation.amount, true)}
-          </motion.div>
-        </div>
+    <SlideBase bg="#0D0800" accentColor="#E8C547" question={QUESTIONS[tipo]}>
+      <div className="flex flex-col h-full">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.1 }}
+          className="font-mono text-xs tracking-[0.25em] mb-4"
+          style={{ color: '#E8C547', opacity: 0.6 }}
+        >
+          CONGRESO DE LA REPÚBLICA
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.15 }}
+          className="font-mono text-xs mb-4"
+          style={{ color: '#F2EDE4', opacity: 0.3 }}
+        >
+          pusiste
+        </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="space-y-4"
+          transition={{ delay: 0.25, type: 'spring', stiffness: 160 }}
+          className="font-display leading-none"
+          style={{ fontSize: 'clamp(4rem, 21vw, 8.5rem)', color: '#F2EDE4' }}
         >
-          <div className="p-4" style={{ background: 'rgba(232,197,71,0.06)', border: '1px solid rgba(232,197,71,0.15)' }}>
-            <p className="text-xs tracking-widest opacity-50 mb-2" style={{ color: '#E8C547' }}>CON ESO FINANCIASTE</p>
-            <p className="font-display" style={{ fontSize: 'clamp(2rem, 10vw, 3.5rem)', color: '#E8C547', fontFamily: 'var(--font-bebas)' }}>
-              {hours < 24 ? `${hours} HORAS` : `${days} DÍAS`}
-            </p>
-            <p className="text-xs opacity-40 mt-1" style={{ color: '#F2EDE4' }}>del salario de un diputado</p>
-          </div>
+          {formatQ(allocation.amount, true)}
+        </motion.div>
 
-          <div className="space-y-1 text-xs" style={{ color: '#F2EDE4', opacity: 0.45, fontFamily: 'var(--font-dm-sans)' }}>
-            <p>En febrero 2025, en una madrugada, 160 diputados se</p>
-            <p>subieron el sueldo <span style={{ color: '#E8C547', opacity: 1 }}>64%</span>: de Q29,150 a Q67,300 al mes.</p>
-            <p className="mt-2 opacity-30">Nadie les preguntó si podían.</p>
-          </div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="mt-5"
+        >
+          <p className="font-mono text-xs" style={{ color: '#E8C547', opacity: 0.5 }}>
+            eso son {hours < 24 ? `${hours} horas` : `${days} días`} del salario de un diputado
+          </p>
+          <p className="font-mono text-xs mt-3" style={{ color: '#F2EDE4', opacity: 0.25 }}>
+            Feb 2025: 160 diputados subieron su sueldo 64% en una madrugada.
+          </p>
         </motion.div>
       </div>
     </SlideBase>

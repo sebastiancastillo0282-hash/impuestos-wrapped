@@ -12,74 +12,63 @@ const LABELS: Record<string, string> = {
 }
 
 const QUESTIONS: Record<string, string> = {
-  employee: '¿Sabías que el Estado cobró antes de que vieras tu quincena? Vos nunca tocaste ese dinero.',
-  independiente: 'Pagás como empresa. Sin IGSS, sin prestaciones, sin vacaciones pagadas. La carga completa, sin los beneficios.',
-  empresa: 'Esto asume que declaraste todo. El 70% de ISR en Guatemala se evade. Vos no lo estás haciendo.',
+  employee: '¿Sabías que ese dinero salió antes de que llegara a tu cuenta bancaria?',
+  independiente: '¿Por qué pagás como empresa sin tener ninguna de las prestaciones de un empleado?',
+  empresa: '¿Cuánto de tu competencia compite en tu mismo mercado sin pagar este mismo monto?',
 }
 
 export default function TotalSlide({ taxResult, tipo }: { taxResult: TaxResult; tipo: TaxType }) {
   return (
     <SlideBase bg="#080808" accentColor="#E8C547" question={QUESTIONS[tipo]}>
-      <div className="flex flex-col h-full justify-between">
-        <div>
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-xs tracking-[0.3em] mb-2"
-            style={{ color: '#E8C547', opacity: 0.7 }}
-          >
-            {LABELS[tipo]} · 2024
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-sm mb-1"
-            style={{ color: '#F2EDE4', opacity: 0.5, fontFamily: 'var(--font-dm-sans)' }}
-          >
-            Le diste al Estado:
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}
-            className="font-display leading-none"
-            style={{ fontSize: 'clamp(3.5rem, 16vw, 6rem)', color: '#E8C547', fontFamily: 'var(--font-bebas)' }}
-          >
-            {formatQ(taxResult.total, true)}
-          </motion.div>
-        </div>
+      <div className="flex flex-col h-full">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.1 }}
+          className="font-mono text-xs tracking-[0.25em] mb-1"
+          style={{ color: '#E8C547', opacity: 0.6 }}
+        >
+          {LABELS[tipo]} · 2024
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.15 }}
+          className="font-mono text-xs mb-4"
+          style={{ color: '#F2EDE4', opacity: 0.35 }}
+        >
+          le diste al Estado:
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25, type: 'spring', stiffness: 160 }}
+          className="font-display leading-none"
+          style={{ fontSize: 'clamp(4rem, 21vw, 8.5rem)', color: '#E8C547' }}
+        >
+          {formatQ(taxResult.total, true)}
+        </motion.div>
 
         {taxResult.igss > 0 && (
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="space-y-2 py-4"
-            style={{ borderTop: '1px solid rgba(242,237,228,0.1)', borderBottom: '1px solid rgba(242,237,228,0.1)' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="mt-6 space-y-2"
           >
             {[
               { label: 'ISR', value: taxResult.isr },
               { label: 'IGSS (4.83%)', value: taxResult.igss },
             ].map(item => (
               <div key={item.label} className="flex justify-between items-baseline">
-                <span className="text-xs tracking-widest opacity-40" style={{ color: '#F2EDE4' }}>{item.label}</span>
-                <span className="font-display text-xl" style={{ color: '#F2EDE4', fontFamily: 'var(--font-bebas)' }}>{formatQ(item.value, true)}</span>
+                <span className="font-mono text-xs tracking-widest" style={{ color: '#F2EDE4', opacity: 0.3 }}>{item.label}</span>
+                <span className="font-mono text-sm" style={{ color: '#F2EDE4', opacity: 0.55 }}>{formatQ(item.value, true)}</span>
               </div>
             ))}
           </motion.div>
         )}
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.9 }}
-          className="text-xs tracking-widest opacity-25"
-          style={{ color: '#F2EDE4' }}
-        >
-          TOCÁ PARA VER EN QUÉ SE FUE →
-        </motion.p>
       </div>
     </SlideBase>
   )

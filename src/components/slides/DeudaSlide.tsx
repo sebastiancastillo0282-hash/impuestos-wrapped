@@ -7,55 +7,56 @@ import { BudgetCategory } from '@/lib/budget'
 import { TaxType } from '@/lib/taxes'
 
 const QUESTIONS: Record<TaxType, string> = {
-  employee: 'Tu hijo hereda esta deuda. Tampoco le van a preguntar si está de acuerdo.',
-  independiente: 'Facturás, pagás ISR puntual, y además financiás la deuda de los que no facturan y no pagan.',
-  empresa: 'Cada año de deuda nueva que no va a inversión es plata que no circula en la economía donde operás.',
+  employee:      '¿Cuándo fue la última vez que alguien te preguntó si querías contraer esta deuda?',
+  independiente: '¿Por qué la deuda que contrajeron otros la pagás vos que sí declarás y sí cumplís?',
+  empresa:       '¿Cuánta de esa deuda fue a inversión que beneficia tu negocio vs. a gasto corriente?',
 }
 
 export default function DeudaSlide({ allocation, tipo }: { allocation: BudgetCategory & { amount: number }; tipo: TaxType }) {
   return (
-    <SlideBase bg="#150505" accentColor="#C0392B" question={QUESTIONS[tipo]}>
-      <div className="flex flex-col h-full justify-between">
-        <div>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.1 }}
-            className="text-xs tracking-[0.3em] mb-4"
-            style={{ color: '#C0392B', opacity: 0.7 }}
-          >
-            A PAGAR DEUDA PUSISTE
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, type: 'spring' }}
-            className="font-display leading-none mb-2"
-            style={{ fontSize: 'clamp(3rem, 14vw, 5rem)', color: '#F2EDE4', fontFamily: 'var(--font-bebas)' }}
-          >
-            {formatQ(allocation.amount, true)}
-          </motion.div>
-          <p className="text-xs opacity-30 mb-6" style={{ color: '#F2EDE4' }}>12.5% de tu aporte · solo para pagar intereses y capital</p>
-        </div>
+    <SlideBase bg="#0D0404" accentColor="#EF4444" question={QUESTIONS[tipo]}>
+      <div className="flex flex-col h-full">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.1 }}
+          className="font-mono text-xs tracking-[0.25em] mb-4"
+          style={{ color: '#EF4444', opacity: 0.65 }}
+        >
+          SERVICIO DE DEUDA PÚBLICA
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.15 }}
+          className="font-mono text-xs mb-4"
+          style={{ color: '#F2EDE4', opacity: 0.3 }}
+        >
+          pusiste a pagar deuda
+        </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="space-y-3"
+          transition={{ delay: 0.25, type: 'spring', stiffness: 160 }}
+          className="font-display leading-none"
+          style={{ fontSize: 'clamp(4rem, 21vw, 8.5rem)', color: '#F2EDE4' }}
         >
-          <div>
-            <p className="text-xs tracking-widest opacity-40 mb-1" style={{ color: '#C0392B' }}>DEUDA TOTAL DEL PAÍS</p>
-            <p className="font-display" style={{ fontSize: 'clamp(2rem, 10vw, 3rem)', color: '#C0392B', fontFamily: 'var(--font-bebas)' }}>
-              Q253,000 MILLONES
-            </p>
-          </div>
-          <p className="text-xs leading-relaxed opacity-45" style={{ color: '#F2EDE4', fontFamily: 'var(--font-dm-sans)' }}>
-            En 2025 se contrató la deuda nueva más alta de la historia: Q25,104 millones.
-            El 47.9% va a gastos corrientes — no a inversión.
+          {formatQ(allocation.amount, true)}
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="mt-5 space-y-1"
+        >
+          <p className="font-mono text-xs" style={{ color: '#EF4444', opacity: 0.5 }}>
+            deuda total: Q253,000 millones
           </p>
-          <p className="text-xs opacity-25" style={{ color: '#F2EDE4' }}>
-            Naciste debiendo. Seguirás pagando.
+          <p className="font-mono text-xs" style={{ color: '#F2EDE4', opacity: 0.2 }}>
+            47.9% va a gasto corriente, no a inversión
           </p>
         </motion.div>
       </div>

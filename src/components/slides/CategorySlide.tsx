@@ -7,56 +7,56 @@ import { BudgetCategory } from '@/lib/budget'
 import { TaxType } from '@/lib/taxes'
 
 const CONFIGS: Record<string, { bg: string; accent: string }> = {
-  educacion: { bg: '#0A1A0F', accent: '#16A34A' },
-  salud: { bg: '#1A0A0A', accent: '#DC2626' },
-  infraestructura: { bg: '#1A1200', accent: '#D97706' },
-  seguridad: { bg: '#0D0D0D', accent: '#6B7280' },
-  municipalidades: { bg: '#091518', accent: '#0891B2' },
-  pensiones: { bg: '#120A1A', accent: '#7C3AED' },
-  defensa: { bg: '#0D0D0D', accent: '#374151' },
-  desarrollo_social: { bg: '#1A0A10', accent: '#DB2777' },
+  educacion:      { bg: '#060F09', accent: '#22C55E' },
+  salud:          { bg: '#0F0606', accent: '#EF4444' },
+  infraestructura:{ bg: '#0F0B00', accent: '#F59E0B' },
+  seguridad:      { bg: '#07070E', accent: '#818CF8' },
+  municipalidades:{ bg: '#050D10', accent: '#22D3EE' },
+  pensiones:      { bg: '#0A0610', accent: '#A78BFA' },
+  defensa:        { bg: '#080808', accent: '#6B7280' },
+  desarrollo_social: { bg: '#0F0608', accent: '#F472B6' },
 }
 
 const QUESTIONS: Record<string, Record<TaxType, string>> = {
   educacion: {
-    employee: '¿Cuántas escuelas públicas tienen techo, maestros y libros? Tu dinero entró. Los resultados son otra conversación.',
-    independiente: 'El sistema que no te dio trabajo formal recibe tu dinero igual.',
-    empresa: 'El capital humano que contratás se educó aquí... o intentó hacerlo.',
+    employee:      '¿Cuántas de esas escuelas tienen maestro los 180 días del año lectivo?',
+    independiente: '¿Por qué financiás el sistema que no pudo darte empleo formal?',
+    empresa:       '¿Cuánto tenés que capacitar a un egresado de escuela pública antes de que te sirva?',
   },
   salud: {
-    employee: '¿Cuánto esperaste la última vez que fuiste al IGSS? ¿O directamente fuiste a privado?',
-    independiente: 'Sin IGSS y sin seguro privado subsidiado. Pero con ISR puntual.',
-    empresa: 'Tus empleados descuentan IGSS. ¿Lo usarán cuando más lo necesiten?',
+    employee:      '¿Cuánto tardaste la última vez que fuiste al IGSS a que te atendieran?',
+    independiente: '¿Por qué pagás salud pública si vos no tenés IGSS propio?',
+    empresa:       '¿Cuánto gastaste en seguro médico privado para tus empleados encima de este aporte?',
   },
   infraestructura: {
-    employee: '¿Cuántas calles en tu ruta diaria están en buen estado? Exacto.',
-    independiente: 'Tu negocio depende de carreteras, luz y agua que no funcionan igual en todos lados.',
-    empresa: 'Tu cadena de suministro depende de infraestructura que no mejora al ritmo que crece tu negocio.',
+    employee:      '¿Cuántas calles en tu ruta diaria están en buen estado hoy?',
+    independiente: '¿Cuánto tardaste de más en llegar a algún lugar por las carreteras este mes?',
+    empresa:       '¿Cuánto te costó en logística el estado de la infraestructura este año?',
   },
   seguridad: {
-    employee: '¿Te sentís más seguro en la calle que hace cinco años?',
-    independiente: 'Pagás por seguridad pública que no llega donde operás. Y además pagás seguridad privada.',
-    empresa: '¿Cuánto gastaste en seguridad privada encima de este aporte? Sumalo.',
+    employee:      '¿Te sentís más seguro en la calle que hace cinco años?',
+    independiente: '¿Cuánto gastás en seguridad privada encima de este aporte al Estado?',
+    empresa:       '¿Cuánto de tu presupuesto mensual va a seguridad privada además de lo que pagás en impuestos?',
   },
   municipalidades: {
-    employee: 'Tu municipalidad recibió transferencias del presupuesto. ¿En qué lo usó este año?',
-    independiente: 'La municipalidad te cobra, te regula y te multa. También recibe esto del presupuesto.',
-    empresa: 'Tu municipio recibió fondos. ¿Agilizó algún trámite para tu empresa este año?',
+    employee:      '¿Qué obra o servicio de tu municipalidad notaste este año?',
+    independiente: '¿En cuántos trámites municipales te pidieron algo extra este año?',
+    empresa:       '¿Algún trámite municipal tardó lo que prometió este año?',
   },
   pensiones: {
-    employee: '¿Confías en que el IGSS te va a pagar cuando te jubiles? Preguntale a alguien que ya intentó cobrar.',
-    independiente: 'Financiás las pensiones de los demás. Vos no tenés pensión. Ese es el trato.',
-    empresa: 'El sistema de pensiones es para tus empleados, no para vos. Planificá en serio.',
+    employee:      '¿Confías en que el IGSS te va a pagar cuando llegue el momento?',
+    independiente: '¿Quién te paga la jubilación a vos si nunca cotizaste al IGSS?',
+    empresa:       '¿Cuántos de tus empleados entienden cómo funciona realmente su pensión del IGSS?',
   },
   defensa: {
-    employee: '¿Cuándo fue la última vez que el ejército te protegió a vos directamente?',
-    independiente: 'Financiás defensa. No sabés exactamente qué defiende.',
-    empresa: 'Una fracción de tu aporte. El menor porcentaje del presupuesto.',
+    employee:      '¿Cuándo fue la última vez que el ejército te protegió directamente a vos?',
+    independiente: '¿Sabés exactamente qué defienden con este presupuesto?',
+    empresa:       '¿Qué porcentaje del presupuesto de defensa va a operaciones vs. a sueldos?',
   },
   desarrollo_social: {
-    employee: 'El menor rubro del presupuesto. Justo el que más debería crecer.',
-    independiente: 'Menos del 2% del presupuesto. Para todo el desarrollo social del país.',
-    empresa: 'Q1.74 de cada Q100 del Estado va a desarrollo social. Eso también explica el mercado laboral.',
+    employee:      '¿Sabías que desarrollo social es el rubro más pequeño del presupuesto?',
+    independiente: '¿Por qué el rubro que más debería crecer recibe menos del 2% del presupuesto?',
+    empresa:       '¿Qué relación hay entre este número y la calidad del mercado laboral?',
   },
 }
 
@@ -66,70 +66,46 @@ export default function CategorySlide({ category, totalTax, tipo }: { category: 
 
   return (
     <SlideBase bg={config.bg} accentColor={config.accent} question={question}>
-      <div className="flex flex-col h-full justify-between">
-        <div>
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-xs tracking-[0.3em] mb-6"
-            style={{ color: config.accent, opacity: 0.7 }}
-          >
-            DE TU APORTE TOTAL
-          </motion.div>
+      <div className="flex flex-col h-full">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.1 }}
+          className="font-mono text-xs tracking-[0.25em] mb-4"
+          style={{ color: config.accent, opacity: 0.65 }}
+        >
+          {category.label.toUpperCase()} · {category.pct}% DEL PRESUPUESTO
+        </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-            className="font-display leading-none mb-2"
-            style={{ fontSize: 'clamp(3rem, 14vw, 5.5rem)', color: '#F2EDE4', fontFamily: 'var(--font-bebas)' }}
-          >
-            {formatQ(category.amount, true)}
-          </motion.div>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.15 }}
+          className="font-mono text-xs mb-4"
+          style={{ color: '#F2EDE4', opacity: 0.3 }}
+        >
+          de tu aporte total fueron a
+        </motion.p>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="text-sm mb-1 opacity-50"
-            style={{ color: '#F2EDE4', fontFamily: 'var(--font-dm-sans)' }}
-          >
-            fueron a
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.45 }}
-            className="font-display text-3xl mb-1"
-            style={{ color: config.accent, fontFamily: 'var(--font-bebas)', letterSpacing: '0.05em' }}
-          >
-            {category.label.toUpperCase()}
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="text-xs opacity-30"
-            style={{ color: '#F2EDE4' }}
-          >
-            {category.pct}% del presupuesto nacional · {category.description}
-          </motion.p>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25, type: 'spring', stiffness: 160 }}
+          className="font-display leading-none"
+          style={{ fontSize: 'clamp(4rem, 21vw, 8.5rem)', color: '#F2EDE4' }}
+        >
+          {formatQ(category.amount, true)}
+        </motion.div>
 
-        {category.viralFact && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
-            className="py-4"
-            style={{ borderTop: '1px solid rgba(242,237,228,0.08)' }}
-          >
-            <p className="text-sm leading-relaxed" style={{ color: '#F2EDE4', opacity: 0.65, fontFamily: 'var(--font-dm-sans)' }}>
-              {category.viralFact}
-            </p>
-          </motion.div>
-        )}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="font-mono text-xs mt-3"
+          style={{ color: config.accent, opacity: 0.45 }}
+        >
+          {category.description}
+        </motion.p>
       </div>
     </SlideBase>
   )
