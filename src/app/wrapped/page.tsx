@@ -69,8 +69,11 @@ export default async function WrappedPage({
   const taxResult = calculateTotalTax(profile)
   const allocations = allocateBudget(taxResult.total)
 
-  const featuredCategories = ['educacion', 'salud', 'infraestructura', 'seguridad', 'municipalidades', 'pensiones']
-  const featured = allocations.filter(a => featuredCategories.includes(a.key))
+  // Ordered — justicia and otros replace municipalidades and pensiones
+  const featuredCategories = ['educacion', 'salud', 'infraestructura', 'seguridad', 'justicia', 'otros']
+  const featured = featuredCategories
+    .map(key => allocations.find(a => a.key === key))
+    .filter(Boolean) as typeof allocations
   const congreso = allocations.find(a => a.key === 'congreso')!
   const deuda = allocations.find(a => a.key === 'deuda')!
 

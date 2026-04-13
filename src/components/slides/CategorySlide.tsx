@@ -13,6 +13,8 @@ const CONFIGS: Record<string, { bg: string; accent: string }> = {
   seguridad:      { bg: '#07070E', accent: '#818CF8' },
   municipalidades:{ bg: '#050D10', accent: '#22D3EE' },
   pensiones:      { bg: '#0A0610', accent: '#A78BFA' },
+  justicia:       { bg: '#06060F', accent: '#6366F1' },
+  otros:          { bg: '#0A0A0A', accent: '#94A3B8' },
   defensa:        { bg: '#080808', accent: '#6B7280' },
   desarrollo_social: { bg: '#0F0608', accent: '#F472B6' },
 }
@@ -57,6 +59,16 @@ const QUESTIONS: Record<string, Record<TaxType, string>> = {
     employee:      '¿Sabías que desarrollo social es el rubro más pequeño del presupuesto?',
     independiente: '¿Por qué el rubro que más debería crecer recibe menos del 2% del presupuesto?',
     empresa:       '¿Qué relación hay entre este número y la calidad del mercado laboral?',
+  },
+  justicia: {
+    employee:      '¿Sabías que menos del 5% de los delitos denunciados en Guatemala terminan en condena?',
+    independiente: '¿Cuántas deudas que te deben podés cobrar realmente por la vía legal?',
+    empresa:       '¿Cuántos incumplimientos de contrato comercial resolviste en tribunales este año?',
+  },
+  otros: {
+    employee:      'El 21.5% del presupuesto se llama "otros". ¿Sabés qué hay adentro?',
+    independiente: '¿Por qué de cada cinco quetzales que pagaste, uno va a una categoría sin nombre visible?',
+    empresa:       '¿Qué le pedirías al Estado que explicara si pudiera auditar ese "otros"?',
   },
 }
 

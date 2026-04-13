@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 type SlideShowProps = {
@@ -10,6 +10,8 @@ type SlideShowProps = {
 export default function SlideShow({ slides }: SlideShowProps) {
   const [current, setCurrent] = useState(0)
   const [direction, setDirection] = useState(1)
+  const touchStartX = useRef<number | null>(null)
+  const touchStartY = useRef<number | null>(null)
 
   const go = useCallback(
     (next: number) => {
@@ -22,6 +24,23 @@ export default function SlideShow({ slides }: SlideShowProps) {
   const prev = () => current > 0 && go(current - 1)
   const next = () => current < slides.length - 1 && go(current + 1)
 
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX
+    touchStartY.current = e.targetTouches[0].clientY
+  }
+
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null || touchStartY.current === null) return
+    const dx = touchStartX.current - e.changedTouches[0].clientX
+    const dy = Math.abs(touchStartY.current - e.changedTouches[0].clientY)
+    // Only trigger if horizontal swipe is dominant and long enough
+    if (Math.abs(dx) > 48 && Math.abs(dx) > dy * 1.5) {
+      if (dx > 0) next(); else prev()
+    }
+    touchStartX.current = null
+    touchStartY.current = null
+  }
+
   const variants = {
     enter: (d: number) => ({ x: d > 0 ? '100%' : '-100%', opacity: 0 }),
     center: { x: 0, opacity: 1 },
@@ -31,7 +50,11 @@ export default function SlideShow({ slides }: SlideShowProps) {
   const pad = (n: number) => String(n).padStart(2, '0')
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div
+      className="relative w-full h-screen overflow-hidden"
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
       <AnimatePresence custom={direction} mode="wait">
         <motion.div
           key={current}
@@ -49,8 +72,8 @@ export default function SlideShow({ slides }: SlideShowProps) {
 
       {/* Counter */}
       <div
-        className="absolute top-5 right-6 z-20 select-none"
-        style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.1em' }}
+        className="absolute top-5 right-6 z-20 select-none font-mono"
+        style={{ letterSpacing: '0.08em' }}
       >
         <span style={{ color: '#F2EDE4', fontSize: '1.1rem', opacity: 0.9 }}>
           {pad(current + 1)}

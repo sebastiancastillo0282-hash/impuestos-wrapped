@@ -42,7 +42,7 @@ export default function ShareSlide({ taxResult, tipo }: { taxResult: TaxResult; 
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, type: 'spring' }}
             className="font-display leading-none"
-            style={{ fontSize: 'clamp(3.5rem, 15vw, 5.5rem)', color: '#E8C547', fontFamily: 'var(--font-bebas)' }}
+            style={{ fontSize: 'clamp(4rem, 21vw, 8.5rem)', color: '#E8C547' }}
           >
             {formatQ(taxResult.total, true)}
           </motion.div>
@@ -65,8 +65,8 @@ export default function ShareSlide({ taxResult, tipo }: { taxResult: TaxResult; 
         >
           <button
             onClick={handleShare}
-            className="w-full py-4 font-display text-lg tracking-wider transition-all duration-150 hover:opacity-90"
-            style={{ background: '#E8C547', color: '#080808', fontFamily: 'var(--font-bebas)', letterSpacing: '0.1em' }}
+            className="w-full py-4 font-display text-xl tracking-wider transition-all duration-150 hover:opacity-90"
+            style={{ background: '#E8C547', color: '#080808', letterSpacing: '0.08em' }}
           >
             COMPARTIR MI WRAPPED
           </button>
