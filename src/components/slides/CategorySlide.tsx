@@ -5,57 +5,87 @@ import SlideBase from './SlideBase'
 import { formatQ } from '@/lib/formatters'
 import { BudgetCategory } from '@/lib/budget'
 
-const GRADIENTS: Record<string, string> = {
-  educacion: 'bg-gradient-to-br from-green-800 to-emerald-900',
-  salud: 'bg-gradient-to-br from-red-800 to-rose-900',
-  infraestructura: 'bg-gradient-to-br from-yellow-800 to-orange-900',
-  seguridad: 'bg-gradient-to-br from-slate-700 to-slate-900',
-  municipalidades: 'bg-gradient-to-br from-teal-800 to-cyan-900',
-  pensiones: 'bg-gradient-to-br from-violet-800 to-purple-900',
+const CONFIGS: Record<string, { bg: string; accent: string }> = {
+  educacion: { bg: '#0A1A0F', accent: '#16A34A' },
+  salud: { bg: '#1A0A0A', accent: '#DC2626' },
+  infraestructura: { bg: '#1A1200', accent: '#D97706' },
+  seguridad: { bg: '#0D0D0D', accent: '#6B7280' },
+  municipalidades: { bg: '#091518', accent: '#0891B2' },
+  pensiones: { bg: '#120A1A', accent: '#7C3AED' },
+  defensa: { bg: '#0D0D0D', accent: '#374151' },
+  desarrollo_social: { bg: '#1A0A10', accent: '#DB2777' },
 }
 
-export default function CategorySlide({
-  category,
-  totalTax,
-}: {
-  category: BudgetCategory & { amount: number }
-  totalTax: number
-}) {
-  const gradient = GRADIENTS[category.key] ?? 'bg-gradient-to-br from-indigo-800 to-indigo-900'
+export default function CategorySlide({ category, totalTax }: { category: BudgetCategory & { amount: number }; totalTax: number }) {
+  const config = CONFIGS[category.key] ?? { bg: '#0A0A0A', accent: '#F2EDE4' }
 
   return (
-    <SlideBase gradient={gradient}>
-      <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ type: 'spring', delay: 0.1 }}
-        className="text-7xl"
-      >
-        {category.emoji}
-      </motion.div>
-      <div className="space-y-1">
-        <p className="text-white/70 text-lg">De lo que pagaste,</p>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="text-4xl font-black text-white"
-        >
-          {formatQ(category.amount)}
-        </motion.p>
-        <p className="text-white/70 text-lg">fue a {category.label}</p>
-        <p className="text-white/40 text-sm">{category.pct}% del presupuesto nacional</p>
+    <SlideBase bg={config.bg} accentColor={config.accent}>
+      <div className="flex flex-col h-full justify-between">
+        <div>
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-xs tracking-[0.3em] mb-6"
+            style={{ color: config.accent, opacity: 0.7 }}
+          >
+            DE TU APORTE TOTAL
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
+            className="font-display leading-none mb-2"
+            style={{ fontSize: 'clamp(3rem, 14vw, 5.5rem)', color: '#F2EDE4', fontFamily: 'var(--font-bebas)' }}
+          >
+            {formatQ(category.amount, true)}
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="text-sm mb-1 opacity-50"
+            style={{ color: '#F2EDE4', fontFamily: 'var(--font-dm-sans)' }}
+          >
+            fueron a
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.45 }}
+            className="font-display text-3xl mb-1"
+            style={{ color: config.accent, fontFamily: 'var(--font-bebas)', letterSpacing: '0.05em' }}
+          >
+            {category.label.toUpperCase()}
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="text-xs opacity-30"
+            style={{ color: '#F2EDE4' }}
+          >
+            {category.pct}% del presupuesto nacional · {category.description}
+          </motion.p>
+        </div>
+
+        {category.viralFact && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7 }}
+            className="py-4"
+            style={{ borderTop: '1px solid rgba(242,237,228,0.08)' }}
+          >
+            <p className="text-sm leading-relaxed" style={{ color: '#F2EDE4', opacity: 0.65, fontFamily: 'var(--font-dm-sans)' }}>
+              {category.viralFact}
+            </p>
+          </motion.div>
+        )}
       </div>
-      {category.viralFact && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.7 }}
-          className="bg-white/15 rounded-xl p-4 text-white/80 text-sm leading-relaxed"
-        >
-          {category.viralFact}
-        </motion.div>
-      )}
     </SlideBase>
   )
 }
