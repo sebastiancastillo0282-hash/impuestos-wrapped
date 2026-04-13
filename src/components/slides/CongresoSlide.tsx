@@ -4,13 +4,20 @@ import { motion } from 'framer-motion'
 import SlideBase from './SlideBase'
 import { formatQ, diputadoDays } from '@/lib/formatters'
 import { BudgetCategory } from '@/lib/budget'
+import { TaxType } from '@/lib/taxes'
 
-export default function CongresoSlide({ allocation }: { allocation: BudgetCategory & { amount: number } }) {
+const QUESTIONS: Record<TaxType, string> = {
+  employee: 'Nadie te preguntó si estabas de acuerdo. Te lo descontaron antes de que vieras el número.',
+  independiente: 'Ellos tienen sueldo fijo garantizado. Vos tenés ingresos variables. Y aun así financiaste esto.',
+  empresa: 'Los mismos que regulan, multan y legislan sobre tu empresa se subieron el sueldo sin consultar.',
+}
+
+export default function CongresoSlide({ allocation, tipo }: { allocation: BudgetCategory & { amount: number }; tipo: TaxType }) {
   const days = diputadoDays(allocation.amount)
   const hours = Math.round(days * 24)
 
   return (
-    <SlideBase bg="#180E00" accentColor="#E8C547">
+    <SlideBase bg="#180E00" accentColor="#E8C547" question={QUESTIONS[tipo]}>
       <div className="flex flex-col h-full justify-between">
         <div>
           <motion.p

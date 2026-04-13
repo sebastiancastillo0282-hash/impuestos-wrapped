@@ -19,11 +19,16 @@ export default function SlideShow({ slides }: SlideShowProps) {
     [current]
   )
 
+  const prev = () => current > 0 && go(current - 1)
+  const next = () => current < slides.length - 1 && go(current + 1)
+
   const variants = {
     enter: (d: number) => ({ x: d > 0 ? '100%' : '-100%', opacity: 0 }),
     center: { x: 0, opacity: 1 },
     exit: (d: number) => ({ x: d > 0 ? '-100%' : '100%', opacity: 0 }),
   }
+
+  const pad = (n: number) => String(n).padStart(2, '0')
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
@@ -42,34 +47,80 @@ export default function SlideShow({ slides }: SlideShowProps) {
         </motion.div>
       </AnimatePresence>
 
-      {/* Nav dots */}
-      <div className="absolute bottom-8 left-0 right-0 flex justify-center gap-2 z-10">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => go(i)}
-            className={`w-2 h-2 rounded-full transition-all ${
-              i === current ? 'bg-white w-6' : 'bg-white/40'
-            }`}
-          />
-        ))}
+      {/* Counter */}
+      <div
+        className="absolute top-5 right-6 z-20 select-none"
+        style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.1em' }}
+      >
+        <span style={{ color: '#F2EDE4', fontSize: '1.1rem', opacity: 0.9 }}>
+          {pad(current + 1)}
+        </span>
+        <span style={{ color: '#F2EDE4', fontSize: '1.1rem', opacity: 0.25 }}>
+          /{pad(slides.length)}
+        </span>
       </div>
 
-      {/* Tap zones */}
+      {/* Arrow — left */}
       {current > 0 && (
         <button
-          onClick={() => go(current - 1)}
-          className="absolute left-0 top-0 w-1/3 h-full z-10"
+          onClick={prev}
           aria-label="Anterior"
-        />
+          className="absolute left-0 top-0 h-full z-10 flex items-center justify-start group"
+          style={{ width: '20%', background: 'transparent' }}
+        >
+          <div
+            className="ml-3 flex items-center justify-center transition-all duration-200 group-hover:opacity-100"
+            style={{
+              width: 36,
+              height: 36,
+              borderRadius: 2,
+              border: '1px solid rgba(242,237,228,0.15)',
+              background: 'rgba(8,8,8,0.6)',
+              opacity: 0.45,
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M9 2L4 7L9 12" stroke="#F2EDE4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+        </button>
       )}
+
+      {/* Arrow — right */}
       {current < slides.length - 1 && (
         <button
-          onClick={() => go(current + 1)}
-          className="absolute right-0 top-0 w-1/3 h-full z-10"
+          onClick={next}
           aria-label="Siguiente"
-        />
+          className="absolute right-0 top-0 h-full z-10 flex items-center justify-end group"
+          style={{ width: '20%', background: 'transparent' }}
+        >
+          <div
+            className="mr-3 flex items-center justify-center transition-all duration-200 group-hover:opacity-100"
+            style={{
+              width: 36,
+              height: 36,
+              borderRadius: 2,
+              border: '1px solid rgba(242,237,228,0.15)',
+              background: 'rgba(8,8,8,0.6)',
+              opacity: 0.45,
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M5 2L10 7L5 12" stroke="#F2EDE4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+        </button>
       )}
+
+      {/* Progress bar */}
+      <div className="absolute bottom-0 left-0 right-0 z-20 h-[2px]" style={{ background: 'rgba(242,237,228,0.08)' }}>
+        <motion.div
+          className="h-full"
+          style={{ background: '#E8C547' }}
+          animate={{ width: `${((current + 1) / slides.length) * 100}%` }}
+          transition={{ type: 'spring', stiffness: 200, damping: 30 }}
+        />
+      </div>
     </div>
   )
 }

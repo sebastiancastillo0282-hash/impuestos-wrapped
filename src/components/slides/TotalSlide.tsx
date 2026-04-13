@@ -11,9 +11,15 @@ const LABELS: Record<string, string> = {
   empresa: 'EMPRESA',
 }
 
+const QUESTIONS: Record<string, string> = {
+  employee: '¿Sabías que el Estado cobró antes de que vieras tu quincena? Vos nunca tocaste ese dinero.',
+  independiente: 'Pagás como empresa. Sin IGSS, sin prestaciones, sin vacaciones pagadas. La carga completa, sin los beneficios.',
+  empresa: 'Esto asume que declaraste todo. El 70% de ISR en Guatemala se evade. Vos no lo estás haciendo.',
+}
+
 export default function TotalSlide({ taxResult, tipo }: { taxResult: TaxResult; tipo: TaxType }) {
   return (
-    <SlideBase bg="#080808" accentColor="#E8C547">
+    <SlideBase bg="#080808" accentColor="#E8C547" question={QUESTIONS[tipo]}>
       <div className="flex flex-col h-full justify-between">
         <div>
           <motion.p

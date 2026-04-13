@@ -3,10 +3,11 @@ import { ReactNode } from 'react'
 type Props = {
   bg?: string
   accentColor?: string
+  question?: string
   children: ReactNode
 }
 
-export default function SlideBase({ bg = '#080808', accentColor, children }: Props) {
+export default function SlideBase({ bg = '#080808', accentColor, question, children }: Props) {
   return (
     <div
       className="relative w-full h-full flex flex-col grain overflow-hidden"
@@ -27,9 +28,29 @@ export default function SlideBase({ bg = '#080808', accentColor, children }: Pro
         }} />
       )}
 
-      <div className="relative z-10 flex-1 flex flex-col px-8 py-12 max-w-lg mx-auto w-full">
+      <div className="relative z-10 flex-1 flex flex-col px-8 py-12 max-w-lg mx-auto w-full pb-4">
         {children}
       </div>
+
+      {/* Per-rubro question */}
+      {question && (
+        <div
+          className="relative z-10 px-8 pb-10 max-w-lg mx-auto w-full"
+          style={{ borderTop: '1px solid rgba(242,237,228,0.08)' }}
+        >
+          <p
+            className="text-xs leading-relaxed pt-3"
+            style={{
+              color: accentColor ?? '#F2EDE4',
+              opacity: 0.6,
+              fontFamily: 'var(--font-dm-sans)',
+              fontStyle: 'italic',
+            }}
+          >
+            {question}
+          </p>
+        </div>
+      )}
     </div>
   )
 }

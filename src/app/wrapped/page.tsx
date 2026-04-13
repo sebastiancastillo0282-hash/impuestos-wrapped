@@ -74,15 +74,17 @@ export default async function WrappedPage({
   const congreso = allocations.find(a => a.key === 'congreso')!
   const deuda = allocations.find(a => a.key === 'deuda')!
 
+  const t = tipo as 'employee' | 'independiente' | 'empresa'
+
   const slides = [
-    <TotalSlide key="total" taxResult={taxResult} tipo={tipo as 'employee' | 'independiente' | 'empresa'} />,
+    <TotalSlide key="total" taxResult={taxResult} tipo={t} />,
     ...featured.map(cat => (
-      <CategorySlide key={cat.key} category={cat} totalTax={taxResult.total} />
+      <CategorySlide key={cat.key} category={cat} totalTax={taxResult.total} tipo={t} />
     )),
-    <CongresoSlide key="congreso" allocation={congreso} />,
-    <DeudaSlide key="deuda" allocation={deuda} />,
-    <EvacionSlide key="evacion" />,
-    <ShareSlide key="share" taxResult={taxResult} tipo={tipo as 'employee' | 'independiente' | 'empresa'} />,
+    <CongresoSlide key="congreso" allocation={congreso} tipo={t} />,
+    <DeudaSlide key="deuda" allocation={deuda} tipo={t} />,
+    <EvacionSlide key="evacion" tipo={t} />,
+    <ShareSlide key="share" taxResult={taxResult} tipo={t} />,
   ]
 
   return <SlideShow slides={slides} />

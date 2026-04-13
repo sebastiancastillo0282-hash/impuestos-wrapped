@@ -2,10 +2,17 @@
 
 import { motion } from 'framer-motion'
 import SlideBase from './SlideBase'
+import { TaxType } from '@/lib/taxes'
 
-export default function EvacionSlide() {
+const QUESTIONS: Record<TaxType, string> = {
+  employee: 'Vos sí pagaste. Otros no. El sistema carga más sobre los que cumplen para compensar a los que no.',
+  independiente: 'El sistema está diseñado para que los informales paguen menos que vos. Y vos pagás puntual igual.',
+  empresa: 'Tu competencia puede estar entre ese 70% de ISR no pagado. Vos no. Eso te cuesta.',
+}
+
+export default function EvacionSlide({ tipo }: { tipo: TaxType }) {
   return (
-    <SlideBase bg="#080808" accentColor="#C0392B">
+    <SlideBase bg="#080808" accentColor="#C0392B" question={QUESTIONS[tipo]}>
       <div className="flex flex-col h-full justify-between">
         <div>
           <motion.p

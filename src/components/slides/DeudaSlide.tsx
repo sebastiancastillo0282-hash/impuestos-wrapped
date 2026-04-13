@@ -4,10 +4,17 @@ import { motion } from 'framer-motion'
 import SlideBase from './SlideBase'
 import { formatQ } from '@/lib/formatters'
 import { BudgetCategory } from '@/lib/budget'
+import { TaxType } from '@/lib/taxes'
 
-export default function DeudaSlide({ allocation }: { allocation: BudgetCategory & { amount: number } }) {
+const QUESTIONS: Record<TaxType, string> = {
+  employee: 'Tu hijo hereda esta deuda. Tampoco le van a preguntar si está de acuerdo.',
+  independiente: 'Facturás, pagás ISR puntual, y además financiás la deuda de los que no facturan y no pagan.',
+  empresa: 'Cada año de deuda nueva que no va a inversión es plata que no circula en la economía donde operás.',
+}
+
+export default function DeudaSlide({ allocation, tipo }: { allocation: BudgetCategory & { amount: number }; tipo: TaxType }) {
   return (
-    <SlideBase bg="#150505" accentColor="#C0392B">
+    <SlideBase bg="#150505" accentColor="#C0392B" question={QUESTIONS[tipo]}>
       <div className="flex flex-col h-full justify-between">
         <div>
           <motion.p
